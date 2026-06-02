@@ -1,6 +1,6 @@
 # EvidenceLog Reproduction Guide
 
-This anonymous artifact accompanies the paper
+This reproduction artifact accompanies the paper
 **A Verifiable Pre-Diagnostic Evidence Filtering Framework for System Log Anomaly Analysis**.
 
 It is written as a reviewer reproduction guide. It is not a general-purpose
@@ -77,7 +77,7 @@ The code expects the two files above:
 - `HDFS.log_templates.csv`: event ID to template mapping.
 
 Do not upload full HDFS, BGL, Thunderbird, Spirit, or other LogHub raw datasets
-into an anonymous review repository unless the dataset license and venue policy
+into a review repository unless the dataset license and venue policy
 explicitly permit redistribution. The safer reproduction path is to provide
 download instructions and require reviewers to place the files in `data/HDFS/`.
 
