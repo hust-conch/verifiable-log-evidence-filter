@@ -11,7 +11,7 @@ project README.
 This repository reproduces the HDFS core evidence-validity results reported in the paper. Optional downstream pilots and supplementary boundary analyses are documented separately and are not required for reproducing the main claims.
 - HDFS main evidence-validity result at budget ratio 0.30.
 - HDFS multi-budget robustness over five seeds and five budgets.
-- Anchor-first design ablation and context-policy sensitivity.
+- AnchorFirst design ablation and context-policy sensitivity.
 - Paired comparison over 5 seeds × 5 budgets.
 - Robustness under multiple frozen verifiers.
 
@@ -20,10 +20,10 @@ LLM diagnosis system. The optional Qwen/Ollama pilot in the paper is
 hardware-dependent and is not required for reproducing the main HDFS
 evidence-validity results.
 
-The intended claim is limited: anchor-first is a low-noise, auditable,
+The intended claim is limited: AnchorFirst is a low-noise, auditable,
 cold-start evidence filter with positive necessity gaps against random removals
 and simple severity rules under the fixed HDFS protocol. The paper does not
-claim that anchor-first is the strongest label-free salience method or that
+claim that AnchorFirst is the strongest label-free salience method or that
 selected evidence alone is sufficient for final diagnosis.
 
 No pre-trained model is required for the core artifact. The optional
@@ -182,7 +182,7 @@ runs/phase4_hdfs_main_<timestamp>/
 
 The split JSON files contain the exact train/test block IDs for each seed.
 
-### 5.2 Ablation run: anchor-first design ablation and context sensitivity
+### 5.2 Ablation run: AnchorFirst design ablation and context sensitivity
 
 ```bash
 python run_ablation.py \
@@ -271,7 +271,7 @@ Key expected values for the HDFS main evidence-validity result at budget ratio 0
 
 ```text
 Method             Selected-only F1  Evidence-removed F1  Necessity Drop  Gap vs Count  Gap vs Span  Noise-like Ratio
-Anchor-first       0.941             0.820                0.178           0.113         0.086        0.007
+AnchorFirst       0.941             0.820                0.178           0.113         0.086        0.007
 Template-rarity    0.481             0.664                0.334           0.269         0.242        0.137
 Original RANK      0.560             0.856                0.142           0.078         0.050        0.589
 Severity-only      0.436             0.861                0.137           0.072         0.045        0.694
@@ -295,8 +295,8 @@ Key expected ablation values at budget ratio 0.30:
 
 ```text
 Variant                         Necessity Drop mean +/- std  Gap vs Count  Noise-like Ratio
-Anchor-first full               0.1779 +/- 0.0026            0.1131        0.0070
-w/o anchor-first allocation     0.1473 +/- 0.0029            0.0825        0.5324
+AnchorFirst full               0.1779 +/- 0.0026            0.1131        0.0070
+w/o AnchorFirst allocation     0.1473 +/- 0.0029            0.0825        0.5324
 w/o noise penalty               0.1350 +/- 0.0024            0.0702        0.5585
 w/o burst cap                   0.1440 +/- 0.0023            0.0792        0.0032
 w/o severity boost              0.1770 +/- 0.0025            0.1122        0.0070
@@ -305,13 +305,13 @@ w/o failure cue boost           0.1780 +/- 0.0026            0.1132        0.002
 
 The paired-comparison result should report 25/0/0 wins against both random
 baselines and original RANK, and 22/3/0 against severity-only. The verifier
-robustness result should report positive anchor-first gaps under Logistic
+robustness result should report positive AnchorFirst gaps under Logistic
 Regression, Linear SVM, and Random Forest.
 
 ## 8. Complexity
 
 For a log sample with `n` lines, `m` candidate anchors, evidence budget `k`,
-and context window `w`, anchor-first first scores anchors in `O(m)`, sorts them
+and context window `w`, AnchorFirst first scores anchors in `O(m)`, sorts them
 in `O(m log m)`, and then expands context around selected anchors in `O(k w)`.
 Since `m <= n` and `w` is fixed to 1 in the main experiments, the per-sample
 time complexity is `O(m log m)` and the memory complexity is `O(n)` for
@@ -387,14 +387,14 @@ and does not use it to regenerate the main HDFS evidence-validity results.
 - Randomness is controlled through the fixed seeds listed above, but small
   numerical differences can still arise from library or platform versions.
 - Template-rarity is a strong label-free corpus-level baseline on HDFS; the
-  paper positions anchor-first as lower-noise and more auditable, not as the
+  paper positions AnchorFirst as lower-noise and more auditable, not as the
   strongest label-free salience scorer.
 
 ## Leakage Guard Summary
 
 The artifact enforces the following boundaries:
 
-1. `anchor-first`
+1. `AnchorFirst`
    - Label-free.
    - Uses rule cues, normalized text, templates, entity cues, and local context.
    - Does not access train labels, test labels, verifier predictions, or
