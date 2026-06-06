@@ -8,7 +8,7 @@ project README.
 
 ## 1. What This Repository Reproduces
 
-This repository reproduces the HDFS core results reported in the paper:
+This repository reproduces the HDFS core evidence-validity results reported in the paper. Optional downstream pilots and supplementary boundary analyses are documented separately and are not required for reproducing the main claims.
 - HDFS main evidence-validity result at budget ratio 0.30.
 - HDFS multi-budget robustness over five seeds and five budgets.
 - Anchor-first design ablation and context-policy sensitivity.
