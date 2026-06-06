@@ -8,13 +8,12 @@ project README.
 
 ## 1. What This Repository Reproduces
 
-This repository reproduces the HDFS core tables reported in the paper:
-
-- Table III: HDFS main evidence-validity result at budget ratio 0.30.
-- Table V: HDFS multi-budget robustness over five seeds and five budgets.
-- Table VI: anchor-first design ablation and context-policy sensitivity.
-- Table VII: paired comparison over 5 seeds x 5 budgets.
-- Table VIII: robustness under multiple frozen verifiers.
+This repository reproduces the HDFS core results reported in the paper:
+- HDFS main evidence-validity result at budget ratio 0.30.
+- HDFS multi-budget robustness over five seeds and five budgets.
+- Anchor-first design ablation and context-policy sensitivity.
+- Paired comparison over 5 seeds × 5 budgets.
+- Robustness under multiple frozen verifiers.
 
 The artifact focuses on the pre-diagnostic evidence filter. It does not run an
 LLM diagnosis system. The optional Qwen/Ollama pilot in the paper is
