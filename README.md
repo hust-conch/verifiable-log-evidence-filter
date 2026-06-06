@@ -1,7 +1,7 @@
 # EvidenceLog Reproduction Guide
 
 This reproduction artifact accompanies the paper
-**A Verifiable Pre-Diagnostic Evidence Filtering Framework for System Log Anomaly Analysis**.
+**Validity-Aware Evidence Filtering for System Log Anomaly Analysis**.
 
 It is written as a reviewer reproduction guide. It is not a general-purpose
 project README.
