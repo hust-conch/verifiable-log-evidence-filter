@@ -17,8 +17,8 @@ This repository reproduces the HDFS core evidence-validity results reported in t
 
 The artifact focuses on the pre-diagnostic evidence filter. It does not run an
 LLM diagnosis system. The optional Qwen/Ollama pilot in the paper is
-hardware-dependent and is not required for reproducing Tables III, V, VI, VII,
-or VIII.
+hardware-dependent and is not required for reproducing the main HDFS
+evidence-validity results.
 
 The intended claim is limited: anchor-first is a low-noise, auditable,
 cold-start evidence filter with positive necessity gaps against random removals
@@ -150,7 +150,7 @@ Main method: rank_v0_anchor_first
 Main verifier: frozen TF-IDF + Logistic Regression
 ```
 
-### 5.1 Main HDFS run: Tables III, V, and VII inputs
+### 5.1 Main HDFS run: main budget-0.30, multi-budget, and paired-comparison inputs
 
 ```bash
 python run_hdfs_main.py \
@@ -182,7 +182,7 @@ runs/phase4_hdfs_main_<timestamp>/
 
 The split JSON files contain the exact train/test block IDs for each seed.
 
-### 5.2 Ablation run: Table VI
+### 5.2 Ablation run: anchor-first design ablation and context sensitivity
 
 ```bash
 python run_ablation.py \
@@ -205,7 +205,7 @@ runs/hdfs_ablation_<timestamp>/03_ablation_table.csv
 The context-window rows in this table are sensitivity checks, not revisions to
 the frozen main method.
 
-### 5.3 Verifier robustness run: Table VIII
+### 5.3 Verifier robustness run: multiple frozen verifier robustness
 
 ```bash
 python run_verifier_robustness.py \
@@ -258,6 +258,8 @@ paper_tables/table_viii_verifier_robustness.csv
 paper_tables/table_viii_verifier_robustness.md
 paper_tables/manifest.csv
 ```
+These file names are artifact output names and may not exactly match the final
+paper table numbers.
 
 ## 7. Expected Results
 
@@ -265,7 +267,7 @@ The commands above should regenerate the core HDFS tables under `paper_tables/`.
 Small numerical differences can arise from package versions or BLAS backends,
 but the main trends should match the submission.
 
-Key expected values for Table III at budget ratio 0.30:
+Key expected values for the HDFS main evidence-validity result at budget ratio 0.30:
 
 ```text
 Method             Selected-only F1  Evidence-removed F1  Necessity Drop  Gap vs Count  Gap vs Span  Noise-like Ratio
@@ -278,7 +280,7 @@ Random-span        0.717             0.905                0.092           0.028 
 TF-IDF/log-odds    0.314             0.663                0.335           0.270         0.243        0.529
 ```
 
-Key expected values for Table V:
+Key expected values for the HDFS multi-budget robustness result:
 
 ```text
 Budget  Anchor Drop mean +/- std  Gap vs Count  Gap vs Span
@@ -289,7 +291,7 @@ Budget  Anchor Drop mean +/- std  Gap vs Count  Gap vs Span
 0.40    0.2340 +/- 0.0036         0.1403        0.0170
 ```
 
-Key expected ablation values for Table VI at budget ratio 0.30:
+Key expected ablation values at budget ratio 0.30:
 
 ```text
 Variant                         Necessity Drop mean +/- std  Gap vs Count  Noise-like Ratio
@@ -301,9 +303,10 @@ w/o severity boost              0.1770 +/- 0.0025            0.1122        0.007
 w/o failure cue boost           0.1780 +/- 0.0026            0.1132        0.0027
 ```
 
-Table VII should report 25/0/0 wins against both random baselines and original
-RANK, and 22/3/0 against severity-only. Table VIII should report positive
-anchor-first gaps under Logistic Regression, Linear SVM, and Random Forest.
+The paired-comparison result should report 25/0/0 wins against both random
+baselines and original RANK, and 22/3/0 against severity-only. The verifier
+robustness result should report positive anchor-first gaps under Logistic
+Regression, Linear SVM, and Random Forest.
 
 ## 8. Complexity
 
@@ -371,7 +374,7 @@ served by Ollama, e.g. the Ollama model tag `qwen2.5:7b`, with deterministic
 decoding (`temperature = 0`). Because local model builds, serving backends, and
 CPU/GPU configurations vary, small differences in optional pilot outputs and
 latency are expected. The minimal reviewer artifact does not require this pilot
-and does not use it to regenerate Tables III, V, VI, VII, or VIII.
+and does not use it to regenerate the main HDFS evidence-validity results.
 
 ## 12. Known Limitations
 
